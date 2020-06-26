@@ -1,10 +1,12 @@
 # Modeling citation worthiness by using attention-based bidirectional long short-term memory networks and interpretable models
 
-This is the repository contains the code and data for the Scientometrics paper: Modeling citation worthiness by using attention-based bidirectional long short-term memory networks and interpretable models
+This is the repository contains the code and data for the Scientometrics paper:
+
+ __Zeng, T., Acuna, D.E. (2020)__, _[Modeling citation worthiness by using attention-based Bidirectional Long Short-Term Memory networks and interpretable models](https://doi.org/10.1007/s11192-020-03421-9)_, Scientometrics, 124(1), 399–428
 
 # Data
 
-ACL‑ARC dataset: please refer to [Bonab et al., 2018](http://doi.org/10.1145/3209978.3210162) for details. We downloaded a copy of dataset, adjusted some fields. You can download it from Figshare: [10.6084/m9.figshare.12573872](https://doi.org/10.6084/m9.figshare.12573872).
+ACL‑ARC dataset: please refer to [Bonab et al., 2018](http://doi.org/10.1145/3209978.3210162) for details. We downloaded a copy of the dataset, adjusted some fields. You can download it from Figshare: [10.6084/m9.figshare.12573872](https://doi.org/10.6084/m9.figshare.12573872).
 
 PMOA-CITE dataset: please download 1M sentences from Figshare: [10.6084/m9.figshare.12547574](https://doi.org/10.6084/m9.figshare.12547574)
 
@@ -28,6 +30,8 @@ allennlp train /path/to/experiment/configuration/jsonnet/file -s ../path/to/seri
 ```
 Please refer to allennlp documentation for the use of `train` command
 
+# Live demo for citation worthiness
+Please visit our live demo at [https://cite-worthiness.scienceofscience.org/](https://cite-worthiness.scienceofscience.org/#/), just input some sentences, the tool will predict the probabilities of needing a citation.
 
 # How to cite
 If you use the dataset and code on this repo, please cite our work: Modeling citation worthiness by using attention-based bidirectional long short-term memory networks and interpretable models.
@@ -53,4 +57,4 @@ If you use the dataset and code on this repo, please cite our work: Modeling cit
 The datasets and code are developed in the [Science of Science and Computational Discovery Lab](https://scienceofscience.org/) in the School of Information Studies, Syracuse University.
 
 # License
-The code in this repo use the MIT license.
+The code in this repo uses the MIT license.
