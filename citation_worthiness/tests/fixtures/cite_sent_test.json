@@ -1,0 +1,102 @@
+{
+  "dataset_reader": {
+    "type": "cite_sent_ident_reader",
+    "lazy": false,
+    "tokenizer": {
+      "type": "word",
+      "word_splitter": {
+        "type": "just_spaces"
+      }
+    },
+    "token_indexers": {
+      "tokens": {
+        "type": "single_id",
+        "lowercase_tokens": false
+      },
+      "token_characters": {
+        "type": "characters"
+      }
+    }
+  },
+  "train_data_path": "/home/xxxxxx/sepid_corpus/train.jsonl",
+  "validation_data_path": "/home/xxxxxx/sepid_corpus/valid.jsonl",
+  "test_data_path": "/home/xxxxxx/sepid_corpus/test.jsonl",
+  "model": {
+    "type": "paper_classifier",
+    "label_namespace": "labels",
+    "dropout":0.5,
+    "calculate_f1":true,
+    "positive_label":1,
+    "text_field_embedder": {
+      "token_embedders": {
+        "tokens": {
+          "type": "embedding",
+          "embedding_dim": 50,
+          "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.50d.txt.gz",
+          "trainable": true
+        },
+        "token_characters": {
+          "type": "character_encoding",
+          "embedding": {
+            "embedding_dim": 25
+          },
+          "encoder": {
+            "type": "lstm",
+            "input_size": 25,
+            "hidden_size": 80,
+            "num_layers": 2,
+            "dropout": 0.25,
+            "bidirectional": true
+          }
+        }
+      }
+    },
+    "encoder": {
+      "type": "lstm",
+      "input_size": 210,
+      "hidden_size": 300,
+      "num_layers": 2,
+      "dropout": 0.5,
+      "bidirectional": true
+    },
+    "classifier_feedforward": {
+      "input_dim": 600,
+      "num_layers": 2,
+      "hidden_dims": [200, 2],
+      "activations": ["relu", "linear"],
+      "dropout": [0.2, 0.0]
+    },
+    "regularizer": [
+      [
+        "transitions$",
+        {
+          "type": "l2",
+          "alpha": 0.01
+        }
+      ]
+    ]
+  },
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["text", "num_tokens"]],
+    "padding_noise": 0.0,
+    "batch_size": 64
+  },
+
+  "trainer": {
+    "num_epochs": 100,
+    "patience": 10,
+    "cuda_device": 0,
+    "grad_clipping": 5.0,
+    "validation_metric": "+accuracy",
+    "optimizer": {
+      "type": "adam",
+      "lr": 0.01,
+      "betas": [
+        0.8,
+        0.999
+      ],
+      "eps": 1e-07
+    }
+  }
+}
